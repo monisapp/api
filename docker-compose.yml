@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  monis-app:
+    build:
+      context: .
+    environment:
+      PGUSER: &pg_user postgres
+      PGPASSWORD: &pg_pass postgres
+      PGDATABASE: monis_app
+      PGPORT: 5432
+      PGHOST: postgres
+    ports:
+    - 4000:4000
+    depends_on:
+    - postgres
+    volumes:
+      - ./:/app
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_pass
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - ./run/pgdata:/var/lib/postgres/data/pgdata
