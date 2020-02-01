@@ -20,6 +20,15 @@ defmodule MonisAppWeb.Schema do
       arg(:password, non_null(:string))
       resolve(&MonisAppWeb.UserResolver.login/2)
     end
+
+    field :account, :account do
+      arg(:name, non_null(:string))
+      arg(:type, non_null(:string))
+      arg(:icon, :string)
+      arg(:currency, :string)
+      arg(:amount, :integer)
+      resolve(&MonisAppWeb.AccountResolver.create/2)
+    end
   end
 
   object :user do
