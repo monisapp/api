@@ -26,6 +26,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :monis_app, MonisApp.Guardian,
+  issuer: "monis_app",
+  secret_key: "m+E1aQULDIXXf+N0yvILN9OrqBmIl3pEw31HMnGxMKYMYE55xvtrJFbzTs+XdqEU"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

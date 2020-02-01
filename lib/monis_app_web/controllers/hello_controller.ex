@@ -3,6 +3,6 @@ defmodule MonisAppWeb.HelloController do
 
   def index(conn, _params) do
     conn
-      |> json(%{hello: "world"})
+    |> json(%{hello: "world"})
   end
 end
