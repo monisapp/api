@@ -3,8 +3,22 @@ defmodule MonisAppWeb.UserResolver do
   alias MonisApp.Auth
   alias MonisApp.Auth.User
 
-  def user(%{id: user_id}, _) do
-    {:ok, MonisApp.Auth.get_user!(user_id)}
+  def user(_, %{context: %{user: user}}) do
+    {:ok, user}
+  end
+
+  def create(%{password: password, password_confirm: password_confirm} = params, _) do
+    if password != password_confirm do
+      {:error, "Password and confirmation do not match"}
+    else
+      with {:ok, %User{} = user} <- Auth.create_user(params),
+           {:ok, token, _} <- user |> MonisApp.Guardian.encode_and_sign
+      do
+        {:ok, %{token: token, user: user}}
+      else
+        _ -> {:error, "Could not create user"}
+      end
+    end
   end
 
   def login(%{email: email, password: password}, _) do

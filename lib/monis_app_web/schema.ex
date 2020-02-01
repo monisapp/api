@@ -3,13 +3,13 @@ defmodule MonisAppWeb.Schema do
 
   query do
     field :user, :user do
-      arg(:id, non_null(:string))
+      middleware MonisAppWeb.AuthenticationMiddleware
       resolve(&MonisAppWeb.UserResolver.user/2)
     end
 
     field :accounts, list_of(non_null :account) do
       middleware MonisAppWeb.AuthenticationMiddleware
-      resolve(&MonisAppWeb.AccountResolver.accounts/2)
+      resolve &MonisAppWeb.AccountResolver.accounts/2
     end
 
   end
@@ -18,7 +18,15 @@ defmodule MonisAppWeb.Schema do
     field :login, :login_result do
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
-      resolve(&MonisAppWeb.UserResolver.login/2)
+      resolve &MonisAppWeb.UserResolver.login/2
+    end
+
+    field :register, :login_result do
+      arg(:email, non_null(:string))
+      arg(:password, non_null(:string))
+      arg(:password_confirm, non_null(:string))
+      arg(:name, non_null(:string))
+      resolve &MonisAppWeb.UserResolver.create/2
     end
 
     field :account, :account do
@@ -27,7 +35,7 @@ defmodule MonisAppWeb.Schema do
       arg(:icon, :string)
       arg(:currency, :string)
       arg(:amount, :integer)
-      resolve(&MonisAppWeb.AccountResolver.create/2)
+      resolve &MonisAppWeb.AccountResolver.create/2
     end
   end
 
@@ -52,13 +60,13 @@ defmodule MonisAppWeb.Schema do
     end
   end
 
+  def users_by_id(_, user_ids) do
+    MonisApp.Auth.list_users(user_ids)
+      |> Map.new(fn u -> {u.id, u} end)
+  end
+
   object :login_result do
     field :token, non_null(:string)
     field :user, non_null(:user)
-  end
-
-  def users_by_id(_, user_ids) do
-    users = MonisApp.Auth.list_users(user_ids)
-    Map.new(users, fn u -> {u.id, u} end)
   end
 end
