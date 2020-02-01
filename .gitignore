@@ -28,3 +28,4 @@ monis_app-*.tar
 /priv/static/
 run/
 .elixir_ls/
+.env
