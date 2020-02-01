@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   monis-app:
@@ -17,11 +17,13 @@ services:
     volumes:
       - ./:/app
   postgres:
-    image: postgres:9.6
+    image: postgres:12
     environment:
       POSTGRES_USER: *pg_user
       POSTGRES_PASSWORD: *pg_pass
       PGDATA: /var/lib/postgresql/data/pgdata
     restart: always
     volumes:
-      - ./run/pgdata:/var/lib/postgres/data/pgdata
+      - type: bind
+        source: ./run/pgdata
+        target: /var/lib/postgres/data/pgdata

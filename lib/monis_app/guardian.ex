@@ -11,8 +11,10 @@ defmodule MonisApp.Guardian do
   end
 
   def resource_from_claims(%{"sub" => id}) do
-    resource = MonisApp.Auth.get_user!(id)
-    {:ok, resource}
+    case MonisApp.Auth.get_user(id) do
+     %MonisApp.Auth.User{} = user -> {:ok, user}
+     _ -> {:error, :user_not_found}
+    end
   end
 
   def resource_from_claims(_) do

@@ -6,10 +6,11 @@ defmodule MonisApp.Auth.User do
   @foreign_key_type :binary_id
   schema "users" do
     field :email, :string
-    field :is_active, :boolean, default: false
+    field :is_active, :boolean, default: true
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    has_many :accounts, MonisApp.Finance.Account
 
     timestamps()
   end

@@ -17,8 +17,12 @@ defmodule MonisApp.Auth do
       [%User{}, ...]
 
   """
-  def list_users do
+  def list_users() do
     Repo.all(User)
+  end
+
+  def list_users(user_ids) do
+    Repo.all(from u in User, where: u.id in ^user_ids)
   end
 
   @doc """
@@ -36,6 +40,8 @@ defmodule MonisApp.Auth do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  def get_user(id), do: Repo.get(User, id)
 
   @doc """
   Creates a user.
