@@ -11,9 +11,6 @@ defmodule MonisAppWeb.Router do
 
   scope "/api", MonisAppWeb do
     pipe_through :api
-
-    get "/hello", HelloController, :index
-    get "/user/:id", UserController, :show
   end
 
   scope "/" do
