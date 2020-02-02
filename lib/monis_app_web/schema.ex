@@ -12,6 +12,10 @@ defmodule MonisAppWeb.Schema do
       resolve &MonisAppWeb.AccountResolver.accounts/2
     end
 
+    field :categories, list_of(non_null :category) do
+      arg(:type, :string)
+      resolve &MonisAppWeb.CategoryResolver.categories/2
+    end
   end
 
   mutation do
@@ -68,5 +72,11 @@ defmodule MonisAppWeb.Schema do
   object :login_result do
     field :token, non_null(:string)
     field :user, non_null(:user)
+  end
+
+  object :category do
+    field :name, non_null(:string)
+    field :icon, non_null(:string)
+    field :type, non_null(:string)
   end
 end

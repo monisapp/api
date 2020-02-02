@@ -22,6 +22,8 @@ services:
       POSTGRES_USER: *pg_user
       POSTGRES_PASSWORD: *pg_pass
       PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+    - 5432:5432
     restart: always
     volumes:
       - type: bind

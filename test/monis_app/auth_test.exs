@@ -6,8 +6,8 @@ defmodule MonisApp.AuthTest do
   describe "users" do
     alias MonisApp.Auth.User
 
-    @valid_attrs %{email: "some email", is_active: true, name: "some name"}
-    @update_attrs %{email: "some updated email", is_active: false, name: "some updated name"}
+    @valid_attrs %{email: "some email", password: "1234", is_active: true, name: "some name"}
+    @update_attrs %{email: "some updated email", password: "12345", is_active: false, name: "some updated name"}
     @invalid_attrs %{email: nil, is_active: nil, name: nil}
 
     def user_fixture(attrs \\ %{}) do

@@ -9,3 +9,36 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+# Default Categories
+## Expenses
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
+MonisApp.Finance.create_category(%{
+  name: "medic",
+  type: "expense",
+  icon: "person"
+})
