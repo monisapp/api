@@ -19,6 +19,10 @@ config :monis_app, MonisAppWeb.Endpoint,
   http: [port: 4000],
   debug_errors: false,
   code_reloader: true,
+  live_reload: [
+    ~r"lib/monis_app_web/schema.ex",
+    ~r"lib/monis_app_web/resolvers/.*(ex)",
+  ],
   check_origin: false,
   watchers: []
 
