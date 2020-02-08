@@ -2,21 +2,20 @@ version: '3.2'
 
 services:
   monis-app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    image: monis_app:0.1.0-f3be7e8
     environment:
       PGUSER: &pg_user postgres
       PGPASSWORD: &pg_pass postgres
       PGDATABASE: monis_app
       PGPORT: 5432
       PGHOST: postgres
+      PORT: 4000
+      SECRET_KEY_BASE: 9yx78q4hfq98743
+    restart: on-failure
     ports:
     - 4000:4000
     depends_on:
     - postgres
-    volumes:
-      - ./:/app
   postgres:
     image: postgres:12
     environment:
@@ -28,5 +27,5 @@ services:
     restart: always
     volumes:
       - type: bind
-        source: ./run/pgdata
+        source: ./run/pgdata-prod
         target: /var/lib/postgres/data/pgdata
