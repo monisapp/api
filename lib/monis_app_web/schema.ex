@@ -177,6 +177,7 @@ defmodule MonisAppWeb.Schema do
     field(:value, non_null(:integer))
     field(:transaction_date, non_null(:string))
     field(:comment, :string)
-    # TODO: Add account and category field
+    field(:account, non_null(:account), resolve: &MonisAppWeb.AccountResolver.account/3)
+    field(:category, non_null(:category), resolve: &MonisAppWeb.CategoryResolver.category/3)
   end
 end

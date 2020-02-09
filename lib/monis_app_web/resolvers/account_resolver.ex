@@ -7,6 +7,10 @@ defmodule MonisAppWeb.AccountResolver do
 
   @create_defaults %{amount: 0, currency: "BRL", icon: "generic_money"}
 
+  def account(%{account_id: account_id}, _, _) do
+    {:ok, Finance.get_account!(account_id)}
+  end
+
   def accounts(_, %{context: %{user: user}}) do
     loaded = Finance.list_accounts(user.id)
     {:ok, loaded}
