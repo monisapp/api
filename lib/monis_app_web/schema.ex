@@ -29,7 +29,7 @@ defmodule MonisAppWeb.Schema do
       end)
     end
 
-    field :user, :user do
+    field :user, non_null(:user) do
       middleware(MonisAppWeb.AuthenticationMiddleware)
       resolve(&MonisAppWeb.UserResolver.user/2)
     end
