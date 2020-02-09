@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   monis-app:
-    image: monis_app:0.1.0-f3be7e8
+    image: monis_app:latest
     environment:
       PGUSER: &pg_user postgres
       PGPASSWORD: &pg_pass postgres

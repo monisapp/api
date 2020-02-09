@@ -3,6 +3,7 @@
 APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
 APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
 	BUILD ?= `git rev-parse --short HEAD`
+	DIRTY ?= `[[ -z "$\(git status -s\)" ]] || echo '-dirty'`
 
 help: ## Show help
 	@echo "$(APP_NAME):$(APP_VSN)-$(BUILD)"
@@ -14,7 +15,9 @@ dev: ## Run development environment
 build: ## Build the Docker image
 	docker build --build-arg APP_NAME=$(APP_NAME) \
 		--build-arg APP_VSN=$(APP_VSN) \
-		-t $(APP_NAME):$(APP_VSN)-$(BUILD) \
+		--build-arg MIX_ENV=prod \
+		-t $(APP_NAME):$(APP_VSN)$(DIRTY) \
+		-t $(APP_NAME):$(APP_VSN)-$(BUILD)$(DIRTY) \
 		-t $(APP_NAME):latest .
 
 run: ## Run the app in Docker

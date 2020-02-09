@@ -11,11 +11,8 @@ ARG APP_NAME
 ARG APP_VSN
 # The environment to build with
 ARG MIX_ENV=prod
-# Set this to true if this release is not a Phoenix app
-ARG SKIP_PHOENIX=false
 
-ENV SKIP_PHOENIX=${SKIP_PHOENIX} \
-    APP_NAME=${APP_NAME} \
+ENV APP_NAME=${APP_NAME} \
     APP_VSN=${APP_VSN} \
     MIX_ENV=${MIX_ENV}
 
@@ -40,7 +37,7 @@ RUN if [ -z "$SECRET_KEY_BASE" ]; then export SECRET_KEY_BASE=$(mix phx.gen.secr
     mix release && \
     cp -r _build/${MIX_ENV}/rel/${APP_NAME}/ /opt/built
 
-FROM alpine:${ALPINE_VERSION} as app
+FROM alpine:${ALPINE_VERSION}
 
 # The name of your application/release (required)
 ARG APP_NAME
@@ -61,7 +58,6 @@ WORKDIR /home/app
 COPY --from=builder /opt/built .
 
 RUN chown -R ${USER_NAME}: . && \
-    ls -la ./${APP_NAME}/bin && \
     mv ./${APP_NAME} ./app && \
     mv ./app/bin/${APP_NAME} ./app/bin/app
 

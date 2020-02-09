@@ -4,7 +4,7 @@ use Mix.Config
 config :monis_app, MonisApp.Repo,
   username: "postgres",
   password: "postgres",
-  database: "monis_app_dev",
+  database: "monis_app",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
