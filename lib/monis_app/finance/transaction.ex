@@ -2,6 +2,11 @@ defmodule MonisApp.Finance.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @moduledoc """
+  A transaction represents a movement going out or in an account
+  Each transaction has a category
+  """
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "transactions" do
