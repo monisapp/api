@@ -17,11 +17,8 @@ defmodule MonisApp.Finance do
   end
 
   def get_account!(id), do: Repo.get!(Account, id)
-  def get_account_by(opts) do
-    case Repo.get_by(Account, opts) do
-      nil -> {:error, :not_found}
-      account -> {:ok, account}
-    end
+  def get_account_by!(opts) do
+    Repo.get_by!(Account, opts)
   end
 
   def create_account(attrs \\ %{}) do
