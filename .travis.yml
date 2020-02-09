@@ -1,0 +1,14 @@
+language: elixir
+elixir: '1.10'
+
+services:
+  - docker
+
+before_script:
+  - docker pull postgres:12
+  - docker run -d -p 5423:5423 --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres postgres:12
+  - export MIX_ENV=test
+  - mix ecto.setup
+
+script:
+  - mix test
