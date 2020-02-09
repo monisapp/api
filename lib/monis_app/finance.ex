@@ -103,6 +103,21 @@ defmodule MonisApp.Finance do
   def list_transactions do
     Repo.all(Transaction)
   end
+  def list_transactions(opts) do
+    Enum.reduce(opts, Transaction, fn
+      {key, _} = match, query when key in [:account_id, :id, :category_id] ->
+        IO.inspect(match)
+        query
+        |> where([t], ^[match])
+        |> IO.inspect
+
+      {:user_id, user_id}, query ->
+        query
+        |> join(:left, [t], a in assoc(t, :account))
+        |> where([t, a], a.user_id == ^user_id)
+    end)
+    |> Repo.all
+  end
 
   @doc """
   Gets a single transaction.

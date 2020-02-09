@@ -35,6 +35,21 @@ defmodule MonisAppWeb.Schema do
       end)
     end
 
+    field :transactions, non_null(list_of(non_null(:transaction))) do
+      arg(:account_id, :id)
+      arg(:category_id, :id)
+      arg(:id, :id)
+      middleware(MonisAppWeb.AuthenticationMiddleware)
+
+      resolve(
+        parsing_node_ids(&MonisAppWeb.TransactionResolver.transactions/2,
+          account_id: :account,
+          category_id: :category,
+          id: :transaction
+        )
+      )
+    end
+
     field :user, non_null(:user) do
       middleware(MonisAppWeb.AuthenticationMiddleware)
       resolve(&MonisAppWeb.UserResolver.user/2)
@@ -160,5 +175,6 @@ defmodule MonisAppWeb.Schema do
     field(:value, non_null(:integer))
     field(:transaction_date, non_null(:string))
     field(:comment, :string)
+    # TODO: Add account and category field
   end
 end
