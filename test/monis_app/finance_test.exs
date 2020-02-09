@@ -161,4 +161,69 @@ defmodule MonisApp.FinanceTest do
       assert %Ecto.Changeset{} = Finance.change_category(category)
     end
   end
+
+  describe "transactions" do
+    alias MonisApp.Finance.Transaction
+
+    @valid_attrs %{comment: "some comment", payee: "some payee", transaction_date: ~D[2010-04-17], value: 42}
+    @update_attrs %{comment: "some updated comment", payee: "some updated payee", transaction_date: ~D[2011-05-18], value: 43}
+    @invalid_attrs %{comment: nil, payee: nil, transaction_date: nil, value: nil}
+
+    def transaction_fixture(attrs \\ %{}) do
+      {:ok, transaction} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Finance.create_transaction()
+
+      transaction
+    end
+
+    test "list_transactions/0 returns all transactions" do
+      transaction = transaction_fixture()
+      assert Finance.list_transactions() == [transaction]
+    end
+
+    test "get_transaction!/1 returns the transaction with given id" do
+      transaction = transaction_fixture()
+      assert Finance.get_transaction!(transaction.id) == transaction
+    end
+
+    test "create_transaction/1 with valid data creates a transaction" do
+      assert {:ok, %Transaction{} = transaction} = Finance.create_transaction(@valid_attrs)
+      assert transaction.comment == "some comment"
+      assert transaction.payee == "some payee"
+      assert transaction.transaction_date == ~D[2010-04-17]
+      assert transaction.value == 42
+    end
+
+    test "create_transaction/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Finance.create_transaction(@invalid_attrs)
+    end
+
+    test "update_transaction/2 with valid data updates the transaction" do
+      transaction = transaction_fixture()
+      assert {:ok, %Transaction{} = transaction} = Finance.update_transaction(transaction, @update_attrs)
+      assert transaction.comment == "some updated comment"
+      assert transaction.payee == "some updated payee"
+      assert transaction.transaction_date == ~D[2011-05-18]
+      assert transaction.value == 43
+    end
+
+    test "update_transaction/2 with invalid data returns error changeset" do
+      transaction = transaction_fixture()
+      assert {:error, %Ecto.Changeset{}} = Finance.update_transaction(transaction, @invalid_attrs)
+      assert transaction == Finance.get_transaction!(transaction.id)
+    end
+
+    test "delete_transaction/1 deletes the transaction" do
+      transaction = transaction_fixture()
+      assert {:ok, %Transaction{}} = Finance.delete_transaction(transaction)
+      assert_raise Ecto.NoResultsError, fn -> Finance.get_transaction!(transaction.id) end
+    end
+
+    test "change_transaction/1 returns a transaction changeset" do
+      transaction = transaction_fixture()
+      assert %Ecto.Changeset{} = Finance.change_transaction(transaction)
+    end
+  end
 end
