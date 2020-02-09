@@ -17,6 +17,7 @@ defmodule MonisApp.Finance do
   end
 
   def get_account!(id), do: Repo.get!(Account, id)
+  def get_account_by(opts), do: Repo.get_by(Account, opts)
 
   def create_account(attrs \\ %{}) do
     %Account{}
