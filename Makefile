@@ -7,8 +7,6 @@ APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
 	BUILD ?= `git rev-parse --short HEAD`
 	DIRTY ?= `[[ -z "$(shell git status -s)" ]] || echo '-dirty'`
 
-ELIXIR_IMAGE ?= `grep 'FROM elixir:' Dockerfile | cut -d' ' -f2`
-
 help: ## Show help
 	@echo "$(APP_NAME):$(APP_VSN)-$(BUILD)$(DIRTY)"
 	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
