@@ -7,10 +7,15 @@ otp_release:
 services:
   - docker
 
-before_script:
-  - docker pull postgres:12
-  - docker run -d -p 5432:5432 --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres postgres:12
-  - mix ecto.setup
+env:
+  - DOCKER_COMPOSE_VERSION=1.25.3
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 script:
-  - mix test
+  - make lint
+  - make test

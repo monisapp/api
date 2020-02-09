@@ -1,3 +1,5 @@
+[![Build Status (master)](https://travis-ci.com/monisapp/api.svg?branch=master)](https://travis-ci.com/monisapp/api)
+
 # MonisApp
 
 Finances management made easy
