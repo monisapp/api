@@ -1,4 +1,8 @@
 defmodule MonisAppWeb.AuthenticationMiddleware do
+  @moduledoc """
+  Middleware to ensure user authentication
+  """
+
   @behaviour Absinthe.Middleware
 
   def call(resolution, _config) do

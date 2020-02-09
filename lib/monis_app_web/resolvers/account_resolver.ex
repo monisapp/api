@@ -1,6 +1,10 @@
 defmodule MonisAppWeb.AccountResolver do
   alias MonisApp.Finance
 
+  @moduledoc """
+  Resolvers for the Graphql Account object
+  """
+
   @create_defaults %{amount: 0, currency: "BRL", icon: "generic_money"}
 
   def accounts(_, %{context: %{user: user}}) do

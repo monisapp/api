@@ -1,4 +1,10 @@
 defmodule MonisApp.Finance.Account do
+  @moduledoc """
+  An account will hold many transactions for the user.
+
+  An user may have many accounts for their different credit cards/bank accounts
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

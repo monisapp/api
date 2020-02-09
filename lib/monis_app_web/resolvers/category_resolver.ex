@@ -1,6 +1,9 @@
 defmodule MonisAppWeb.CategoryResolver do
+  @moduledoc """
+  Resolvers for the Graphql Category object
+  """
+
   def categories(params, %{context: %{user: user}}) do
-    Map.merge(%{user_id: user.id}, params) |> IO.inspect
     categories = Map.merge(%{user_id: user.id}, params)
       |> MonisApp.Finance.list_category
     {:ok, categories}
