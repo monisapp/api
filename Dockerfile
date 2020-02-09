@@ -29,12 +29,15 @@ RUN apk update && \
   mix local.hex --force
 
 # This copies our app source code into the build container
+COPY ./mix.exs .
+COPY ./mix.lock .
+
+RUN mix do deps.get, deps.compile
+
 COPY . .
 
-RUN if [ -z "$SECRET_KEY_BASE" ]; then export SECRET_KEY_BASE=$(mix phx.gen.secret); fi && \
-    mix do deps.get, deps.compile, compile && \
-    mkdir -p /opt/built && \
-    mix release && \
+RUN mkdir -p /opt/built && \
+    mix do compile, release && \
     cp -r _build/${MIX_ENV}/rel/${APP_NAME}/ /opt/built
 
 FROM alpine:${ALPINE_VERSION}
