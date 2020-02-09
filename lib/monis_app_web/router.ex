@@ -17,8 +17,9 @@ defmodule MonisAppWeb.Router do
     pipe_through :graphql
     forward "/graphql", Absinthe.Plug, schema: MonisAppWeb.Schema
 
-    if Mix.env() == :dev do
-      forward "/graphiql", Absinthe.Plug.GraphiQL, schema: MonisAppWeb.Schema
-    end
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: MonisAppWeb.Schema
+    # if Mix.env() == :dev do
+    #   forward "/graphiql", Absinthe.Plug.GraphiQL, schema: MonisAppWeb.Schema
+    # end
   end
 end

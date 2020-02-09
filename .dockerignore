@@ -1,1 +1,12 @@
 run/
+_build/
+deps/
+.git/
+.gitignore
+.dockerignore
+docker-compose*
+Dockerfile
+Makefile
+README*
+test/
+priv/static/
