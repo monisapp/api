@@ -47,7 +47,8 @@ defmodule MonisApp.MixProject do
       {:absinthe_phoenix, "~> 1.4.0"},
       {:bcrypt_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:absinthe_relay, "~> 1.4"}
     ]
   end
 
