@@ -9,7 +9,7 @@ services:
 
 before_script:
   - docker pull postgres:12
-  - docker run -d -p 5423:5423 --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres postgres:12
+  - docker run -d -p 5432:5432 --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres postgres:12
   - mix ecto.setup
 
 script:
