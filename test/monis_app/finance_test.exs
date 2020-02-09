@@ -30,7 +30,10 @@ defmodule MonisApp.FinanceTest do
       account_fixture(%{user_email: "other@test.test"})
       account1 = account_fixture()
       account2 = account_fixture(%{user_id: account1.user_id})
-      assert Finance.list_accounts(account1.user_id) == [account1, account2]
+      accounts = Finance.list_accounts(account1.user_id)
+      assert length(accounts) == 2
+      assert account1 in accounts
+      assert account2 in accounts
     end
 
     test "get_account!/1 returns the account with given id" do
