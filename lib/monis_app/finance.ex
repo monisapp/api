@@ -55,7 +55,7 @@ defmodule MonisApp.Finance do
       |> Repo.all
     end
   end
-  def list_category() do
+  def list_category do
     Category
       |> where([c], is_nil(c.user_id))
       |> Repo.all

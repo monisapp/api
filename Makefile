@@ -1,4 +1,4 @@
-.PHONY: help
+.PHONY: help test
 
 PWD ?= `pwd`
 DOCKERHUB_ORG ?= "monisapp"
@@ -25,7 +25,7 @@ build: ## Build the Docker image
 lint: ## Runs linting locally
 	mix credo --config-file ./config/.credo.exs --strict
 
-test: config/ lib/ priv/ test/ ## Runs tests locally
+test: ## Runs tests locally
 	docker-compose up -d postgres
 	@sleep 5s
 	mix test

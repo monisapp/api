@@ -1,4 +1,6 @@
 defmodule MonisAppWeb.Schema do
+  @moduledoc "Graphql Schema definition"
+
   use Absinthe.Schema
   use Absinthe.Relay.Schema, :modern
 

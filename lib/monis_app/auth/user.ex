@@ -1,4 +1,8 @@
 defmodule MonisApp.Auth.User do
+  @moduledoc """
+  An application user, with login credentials
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

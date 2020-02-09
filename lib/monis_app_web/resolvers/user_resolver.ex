@@ -1,5 +1,8 @@
 defmodule MonisAppWeb.UserResolver do
-  
+  @moduledoc """
+  Resolvers for the Graphql User object
+  """
+
   alias MonisApp.Auth
   alias MonisApp.Auth.User
 
