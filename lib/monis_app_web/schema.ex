@@ -12,6 +12,9 @@ defmodule MonisAppWeb.Schema do
 
       %MonisApp.Finance.Category{}, _ ->
         :category
+
+      %MonisApp.Finance.Transaction{}, _ ->
+        :transaction
     end)
   end
 
@@ -26,6 +29,9 @@ defmodule MonisAppWeb.Schema do
 
         %{type: :category, id: id}, _ ->
           {:ok, MonisApp.Finance.get_category!(id)}
+
+        %{type: :transaction, id: id}, _ ->
+          {:ok, MonisApp.Finance.get_transaction!(id)}
       end)
     end
 
@@ -84,6 +90,30 @@ defmodule MonisAppWeb.Schema do
       middleware(MonisAppWeb.AuthenticationMiddleware)
       resolve(&MonisAppWeb.AccountResolver.create/2)
     end
+
+    payload field :create_transaction do
+      input do
+        field(:payee, non_null(:string))
+        field(:value, non_null(:integer))
+        field(:transaction_date, non_null(:string))
+        field(:category_id, non_null(:id))
+        field(:account_id, non_null(:id))
+        field(:comment, :string)
+      end
+
+      output do
+        field :transaction, non_null(:transaction)
+      end
+
+      middleware(MonisAppWeb.AuthenticationMiddleware)
+
+      resolve(
+        parsing_node_ids(&MonisAppWeb.TransactionResolver.create_transaction/2,
+          account_id: :account,
+          category_id: :category
+        )
+      )
+    end
   end
 
   node object(:user) do
@@ -123,5 +153,12 @@ defmodule MonisAppWeb.Schema do
     field :name, non_null(:string)
     field :icon, non_null(:string)
     field :type, non_null(:string)
+  end
+
+  node object(:transaction) do
+    field(:payee, non_null(:string))
+    field(:value, non_null(:integer))
+    field(:transaction_date, non_null(:string))
+    field(:comment, :string)
   end
 end
