@@ -1,4 +1,8 @@
 defmodule MonisApp.Guardian do
+  @moduledoc """
+  Helpers for JWT authentication
+  """
+
   use Guardian, otp_app: :monis_app
 
   def subject_for_token(%{id: id}, _claims) do

@@ -1,4 +1,15 @@
 defmodule MonisApp.Finance.Category do
+  @moduledoc """
+  Transaction category.
+
+  Can be of type:
+    - income
+    - expense
+    - transfer
+
+  icon is an arbitrary string that represents an icon for the frontend
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

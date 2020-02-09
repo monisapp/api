@@ -16,6 +16,7 @@ defmodule MonisAppWeb.ChannelCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do
@@ -28,10 +29,10 @@ defmodule MonisAppWeb.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(MonisApp.Repo)
+    :ok = Sandbox.checkout(MonisApp.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(MonisApp.Repo, {:shared, self()})
+      Sandbox.mode(MonisApp.Repo, {:shared, self()})
     end
 
     :ok

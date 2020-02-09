@@ -17,7 +17,7 @@ defmodule MonisApp.Auth do
       [%User{}, ...]
 
   """
-  def list_users() do
+  def list_users do
     Repo.all(User)
   end
 

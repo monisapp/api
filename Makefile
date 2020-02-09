@@ -1,13 +1,14 @@
-.PHONY: help
+.PHONY: help test
 
+PWD ?= `pwd`
 DOCKERHUB_ORG ?= "monisapp"
 APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
 APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
 	BUILD ?= `git rev-parse --short HEAD`
-	DIRTY ?= `[[ -z "$\(git status -s\)" ]] || echo '-dirty'`
+	DIRTY ?= `[[ -z "$(shell git status -s)" ]] || echo '-dirty'`
 
 help: ## Show help
-	@echo "$(APP_NAME):$(APP_VSN)-$(BUILD)"
+	@echo "$(APP_NAME):$(APP_VSN)-$(BUILD)$(DIRTY)"
 	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 dev: ## Run development environment
@@ -20,6 +21,15 @@ build: ## Build the Docker image
 		-t $(DOCKERHUB_ORG)/$(APP_NAME):$(APP_VSN)$(DIRTY) \
 		-t $(DOCKERHUB_ORG)/$(APP_NAME):$(APP_VSN)-$(BUILD)$(DIRTY) \
 		-t $(DOCKERHUB_ORG)/$(APP_NAME):latest .
+
+lint: ## Runs linting locally
+	mix credo --config-file ./config/.credo.exs --strict
+
+test: ## Runs tests locally
+	docker-compose up -d postgres
+	@sleep 5s
+	mix test
+	docker-compose down
 
 docker_push: build ## Pushes built image to registry
 	docker push $(DOCKERHUB_ORG)/$(APP_NAME):$(APP_VSN)$(DIRTY)

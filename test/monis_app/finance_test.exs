@@ -12,11 +12,11 @@ defmodule MonisApp.FinanceTest do
     @invalid_attrs %{amount: nil, currency: nil, icon: nil, is_active: nil, name: nil, type: nil}
 
     def account_fixture(attrs \\ %{}) do
-      {:ok, user} = with %{user_email: email} <- attrs do
+      {:ok, user} = case attrs do
+      %{user_email: email} ->
         Enum.into(%{email: email}, @user_atts) |> MonisApp.Auth.create_user
-      else
-        %{user_id: id} = attrs -> {:ok, %{id: id}}
-        _ -> MonisApp.Auth.create_user(@user_atts)
+      %{user_id: id} -> {:ok, %{id: id}}
+      _ -> MonisApp.Auth.create_user(@user_atts)
       end
       {:ok, account} =
         Map.merge(%{user_id: user.id}, attrs)

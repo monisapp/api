@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   monis-app:
-    image: monis_app:latest
+    image: monisapp/monis_app:latest
     environment:
       PGUSER: &pg_user postgres
       PGPASSWORD: &pg_pass postgres
@@ -10,7 +10,7 @@ services:
       PGPORT: 5432
       PGHOST: postgres
       PORT: 4000
-      SECRET_KEY_BASE: 9yx78q4hfq98743
+      SECRET_KEY_BASE: 5z5r4XqOigXAwXxkNfblMecRnl9z9n2wIf6oj9hGH9ZE4JlHcX6HjOsEWamEXUUu
     restart: on-failure
     ports:
     - 4000:4000
