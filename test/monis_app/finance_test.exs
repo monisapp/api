@@ -173,9 +173,13 @@ defmodule MonisApp.FinanceTest do
     @invalid_attrs %{comment: nil, payee: nil, transaction_date: nil, value: nil}
 
     def transaction_fixture(attrs \\ %{}) do
+      account = account_fixture()
+      category = category_fixture()
+
       {:ok, transaction} =
         attrs
         |> Enum.into(@valid_attrs)
+        |> Enum.into(%{category_id: category.id, account_id: account.id})
         |> Finance.create_transaction()
 
       transaction
@@ -192,7 +196,10 @@ defmodule MonisApp.FinanceTest do
     end
 
     test "create_transaction/1 with valid data creates a transaction" do
-      assert {:ok, %Transaction{} = transaction} = Finance.create_transaction(@valid_attrs)
+      account = account_fixture()
+      category = category_fixture()
+
+      assert {:ok, %Transaction{} = transaction} = Finance.create_transaction(@valid_attrs |> Map.merge(%{category_id: category.id, account_id: account.id}))
       assert transaction.comment == "some comment"
       assert transaction.payee == "some payee"
       assert transaction.transaction_date == ~D[2010-04-17]
