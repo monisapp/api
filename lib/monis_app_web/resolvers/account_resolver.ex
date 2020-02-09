@@ -1,8 +1,6 @@
 defmodule MonisAppWeb.AccountResolver do
   alias MonisApp.Finance
 
-  require Logger
-
   @create_defaults %{amount: 0, currency: "BRL", icon: "generic_money"}
 
   def accounts(_, %{context: %{user: user}}) do

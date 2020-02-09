@@ -106,10 +106,8 @@ defmodule MonisApp.Finance do
   def list_transactions(opts) do
     Enum.reduce(opts, Transaction, fn
       {key, _} = match, query when key in [:account_id, :id, :category_id] ->
-        IO.inspect(match)
         query
         |> where([t], ^[match])
-        |> IO.inspect
 
       {:user_id, user_id}, query ->
         query
