@@ -46,7 +46,7 @@ defmodule MonisAppWeb.Schema do
   end
 
   mutation do
-    field :login, non_null(:login_result) do
+    field :login, :login_result do
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
       resolve(&MonisAppWeb.UserResolver.login/2)
@@ -88,8 +88,8 @@ defmodule MonisAppWeb.Schema do
 
   node object(:user) do
     field :email, non_null(:string)
-    field :is_active, :boolean
-    field :name, :string
+    field :is_active, non_null(:boolean)
+    field :name, non_null(:string)
   end
 
   node object(:account) do
