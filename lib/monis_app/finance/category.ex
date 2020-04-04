@@ -19,7 +19,7 @@ defmodule MonisApp.Finance.Category do
     field :icon, :string
     field :name, :string
     field :type, :string
-    field :user_id, :binary_id, default: nil
+    belongs_to :user, MonisApp.Auth.User
 
     timestamps()
   end
