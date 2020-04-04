@@ -11,7 +11,7 @@ defmodule MonisApp.Finance.Account do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "accounts" do
-    field :amount, :integer, default: 0
+    field :amount, :decimal, default: 0
     field :currency, :string
     field :icon, :string
     field :is_active, :boolean, default: false

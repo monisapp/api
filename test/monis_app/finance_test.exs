@@ -43,7 +43,7 @@ defmodule MonisApp.FinanceTest do
 
     test "create_account/1 with valid data creates a account" do
       assert %Account{} = account = account_fixture(@valid_attrs)
-      assert account.amount == 42
+      assert account.amount == Decimal.new(42)
       assert account.currency == "some currency"
       assert account.icon == "some icon"
       assert account.is_active == true
@@ -203,7 +203,7 @@ defmodule MonisApp.FinanceTest do
       assert transaction.comment == "some comment"
       assert transaction.payee == "some payee"
       assert transaction.transaction_date == ~D[2010-04-17]
-      assert transaction.value == 42
+      assert transaction.value == Decimal.new(42)
     end
 
     test "create_transaction/1 with invalid data returns error changeset" do
@@ -216,7 +216,7 @@ defmodule MonisApp.FinanceTest do
       assert transaction.comment == "some updated comment"
       assert transaction.payee == "some updated payee"
       assert transaction.transaction_date == ~D[2011-05-18]
-      assert transaction.value == 43
+      assert transaction.value == Decimal.new(43)
     end
 
     test "update_transaction/2 with invalid data returns error changeset" do

@@ -6,7 +6,7 @@ defmodule MonisApp.Repo.Migrations.CreateAccounts do
       add :id, :binary_id, primary_key: true
       add :is_active, :boolean, default: false, null: false
       add :name, :string
-      add :amount, :integer
+      add :amount, :numeric
       add :type, :string
       add :currency, :string
       add :icon, :string

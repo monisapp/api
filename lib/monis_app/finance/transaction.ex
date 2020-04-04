@@ -13,7 +13,7 @@ defmodule MonisApp.Finance.Transaction do
     field :comment, :string
     field :payee, :string
     field :transaction_date, :date
-    field :value, :integer
+    field :value, :decimal
     belongs_to :account, MonisApp.Finance.Account
     belongs_to :category, MonisApp.Finance.Category
 

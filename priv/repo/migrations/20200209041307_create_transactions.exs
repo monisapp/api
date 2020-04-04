@@ -6,7 +6,7 @@ defmodule MonisApp.Repo.Migrations.CreateTransactions do
       add :id, :binary_id, primary_key: true
       add :comment, :string
       add :payee, :string, null: false
-      add :value, :integer, null: false
+      add :value, :numeric, null: false
       add :transaction_date, :date, null: false
       add :category_id, references(:category, on_delete: :nothing, type: :binary_id), null: false
       add :account_id, references(:accounts, on_delete: :delete_all, type: :binary_id), null: false
