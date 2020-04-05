@@ -57,7 +57,7 @@ defmodule MonisAppWeb.Schema do
       resolve(&MonisAppWeb.UserResolver.user/2)
     end
 
-    field :accounts, list_of(non_null(:account)) do
+    field :accounts, non_null(list_of(non_null(:account))) do
       middleware(MonisAppWeb.AuthenticationMiddleware)
       resolve(&MonisAppWeb.AccountResolver.accounts/2)
     end
