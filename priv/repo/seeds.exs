@@ -18,27 +18,42 @@ MonisApp.Finance.create_category(%{
   icon: "person"
 })
 MonisApp.Finance.create_category(%{
-  name: "medic",
+  name: "food",
   type: "expense",
-  icon: "person"
+  icon: "basket"
 })
 MonisApp.Finance.create_category(%{
-  name: "medic",
+  name: "eating out",
   type: "expense",
-  icon: "person"
+  icon: "clutery"
 })
 MonisApp.Finance.create_category(%{
-  name: "medic",
+  name: "bills",
   type: "expense",
-  icon: "person"
+  icon: "bill"
 })
 MonisApp.Finance.create_category(%{
-  name: "medic",
+  name: "education",
   type: "expense",
-  icon: "person"
+  icon: "book"
 })
 MonisApp.Finance.create_category(%{
-  name: "medic",
+  name: "transport",
   type: "expense",
-  icon: "person"
+  icon: "car"
+})
+MonisApp.Finance.create_category(%{
+  name: "salary",
+  type: "income",
+  icon: "money"
+})
+MonisApp.Finance.create_category(%{
+  name: "savings",
+  type: "income",
+  icon: "piggybank"
+})
+MonisApp.Finance.create_category(%{
+  name: "deposits",
+  type: "income",
+  icon: "cash_bag"
 })
