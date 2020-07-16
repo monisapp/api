@@ -1,3 +1,5 @@
+import Logger
+
 defmodule MonisAppWeb.AccountResolver do
   alias MonisApp.Finance
 
@@ -24,7 +26,29 @@ defmodule MonisAppWeb.AccountResolver do
 
     case result do
       {:ok, account} -> {:ok, %{account: account}}
-      rest -> rest
+      other -> other
+    end
+  end
+
+  def delete(%{id: account_id}, %{context: %{user: user}}) do
+    user_accounts = Finance.list_accounts(user.id)
+    acc = Finance.get_account(account_id)
+    not_found_error = {:error, "account not found"}
+
+    if acc != nil do
+      has_account = user_accounts
+        |> Enum.find_value(false, (fn el -> el.id == acc.id end))
+
+      if has_account do
+        case acc |> Finance.delete_account do
+          {:ok, account} -> {:ok, %{account: account}}
+          other -> other
+        end
+      else
+        not_found_error
+      end
+    else
+      not_found_error
     end
   end
 end

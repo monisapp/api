@@ -97,7 +97,7 @@ defmodule MonisAppWeb.Schema do
         field(:type, non_null(:string))
         field(:icon, :string)
         field(:currency, :string)
-        field(:amount, :integer)
+        field(:amount, :string)
       end
 
       output do
@@ -108,10 +108,25 @@ defmodule MonisAppWeb.Schema do
       resolve(&MonisAppWeb.AccountResolver.create/2)
     end
 
+    payload field :delete_account do
+      input do
+        field(:id, non_null(:string))
+      end
+
+      output do
+        field(:account, non_null(:account))
+      end
+
+      middleware(MonisAppWeb.AuthenticationMiddleware)
+      middleware(Absinthe.Relay.Node.ParseIDs, id: :account)
+
+      resolve(&MonisAppWeb.AccountResolver.delete/2)
+    end
+
     payload field :create_transaction do
       input do
         field(:payee, non_null(:string))
-        field(:value, non_null(:integer))
+        field(:value, non_null(:string))
         field(:transaction_date, non_null(:string))
         field(:category_id, non_null(:id))
         field(:account_id, non_null(:id))
@@ -140,7 +155,7 @@ defmodule MonisAppWeb.Schema do
   end
 
   node object(:account) do
-    field :amount, non_null(:integer)
+    field :amount, non_null(:string)
     field :currency, non_null(:string)
     field :icon, :string
     field :is_active, :boolean
@@ -174,7 +189,7 @@ defmodule MonisAppWeb.Schema do
 
   node object(:transaction) do
     field(:payee, non_null(:string))
-    field(:value, non_null(:integer))
+    field(:value, non_null(:string))
     field(:transaction_date, non_null(:string))
     field(:comment, :string)
     field(:account, non_null(:account), resolve: &MonisAppWeb.AccountResolver.account/3)

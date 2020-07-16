@@ -16,9 +16,11 @@ defmodule MonisApp.Finance do
       |> Repo.all
   end
 
+  def get_account(id), do: Repo.get(Account, id)
   def get_account!(id), do: Repo.get!(Account, id)
   def get_account_by!(opts) do
-    Repo.get_by!(Account, opts)
+    Account
+      |> Repo.get_by!(opts)
   end
 
   def create_account(attrs \\ %{}) do
@@ -34,7 +36,7 @@ defmodule MonisApp.Finance do
   end
 
   def delete_account(%Account{} = account) do
-    Repo.delete(account)
+    account |> Repo.delete
   end
 
   def change_account(%Account{} = account) do
