@@ -15,8 +15,7 @@ config :monis_app,
 config :monis_app, MonisAppWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "GF/kewmuyFiaTqJVmEpkhNjbFm7rGde48m4u2VLjj9W7lSssThW9D1aeuVPK/3WB",
-  render_errors: [view: MonisAppWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: MonisApp.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: MonisAppWeb.ErrorView, accepts: ~w(json)]
 
 # Configures Elixir's Logger
 config :logger, :console,

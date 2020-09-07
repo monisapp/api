@@ -11,7 +11,8 @@ defmodule MonisApp.Application do
       # Start the Ecto repository
       MonisApp.Repo,
       # Start the endpoint when the application starts
-      MonisAppWeb.Endpoint
+      MonisAppWeb.Endpoint,
+      {Phoenix.PubSub, [name: MonisApp.PubSub, adapter: Phoenix.PubSub.PG2]}
       # Starts a worker by calling: MonisApp.Worker.start_link(arg)
       # {MonisApp.Worker, arg},
     ]
