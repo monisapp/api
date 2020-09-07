@@ -59,6 +59,10 @@ defmodule MonisApp.Auth do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, user} -> {:ok, Map.put(user, :password, nil)}
+      error -> error
+    end
   end
 
   @doc """
